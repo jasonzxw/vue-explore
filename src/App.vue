@@ -1,17 +1,32 @@
 <!--
  * @author: jason_zuo
  * @LastEditors: jason_zuo
- * @LastEditTime: 2023-08-24 10:26:50
+ * @LastEditTime: 2023-08-24 11:04:35
  * @FilePath: \vue-explore\src\App.vue
 -->
 <script setup>
+import { ref , computed , provide , onBeforeUpdate , onUpdated , onMounted} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import SlotChild from './components/slot/SlotChild.vue';
 import TeleportModal from './components/teleport/TeleportModal.vue';
+import Injectparent from './components/inject/Injectparent.vue';
+import Vmodel from './components/vmodel/Vmodel.vue';
+
+const count = ref(1)
+provide('count' ,count)
+
+const message = ref('hi')
+
+onMounted(() => console.log(`parent mounted`))
+onBeforeUpdate(() => console.log(`parent before update`));
+onUpdated(() => console.log(`parent update`))
 </script>
 
 <template>
+  <button @click="count++"> inject count {{ count }}</button>
+  <Vmodel v-model:message="message"/><span>{{ message }}</span>
   <HelloWorld msg="Vite + Vue" />
+  <Injectparent />
   <SlotChild>
     <template #header>
       <h1>header</h1>

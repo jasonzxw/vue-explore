@@ -1,12 +1,14 @@
 <script setup>
-import { ref } from 'vue'
-import { useMouse } from '../hooks/useMouse'
+import { onBeforeUpdate, ref } from 'vue'
+import { useMouse ,} from '../hooks/useMouse'
 defineProps({
   msg: String,
 })
 
 const count = ref(0)
 const { x , y } = useMouse()
+
+
 </script>
 
 <template>
