@@ -4,6 +4,15 @@ import { ref , watch , computed } from 'vue'
 const count = ref(1);
 const data = ref(2)
 
+const arr = ref([1,2])
+
+function add(){
+    arr.value.push(1)
+}
+// ref 形式，新旧值一样，不能获得旧值
+watch(arr ,((cur,pre) => console.log(cur,pre)),{deep: true})
+// 写错getter形式可以避免不能获得旧值
+watch(() => [... arr.value] ,((cur,pre) => console.log(cur,pre)),{deep: true})
 let total = computed(()=> count.value + data.value)
 watch(count ,(cur,pre) => console.log(cur,pre))
 </script>
@@ -11,6 +20,7 @@ watch(count ,(cur,pre) => console.log(cur,pre))
 <template>
     <div>
         <div>Dep</div>
+        <div @click='add'>{{ arr }}</div>
         <div @click="count++"> {{ count }}</div>
         <div>total: {{ total }}</div>
     </div>
