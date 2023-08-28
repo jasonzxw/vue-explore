@@ -11,7 +11,7 @@ import SlotChild from './components/slot/SlotChild.vue';
 import TeleportModal from './components/teleport/TeleportModal.vue';
 import Injectparent from './components/inject/Injectparent.vue';
 import Vmodel from './components/vmodel/Vmodel.vue';
-
+import Dep from './components/dep/Dep.vue';
 const count = ref(1)
 provide('count' ,count)
 
@@ -23,6 +23,7 @@ onUpdated(() => console.log(`parent update`))
 </script>
 
 <template>
+  <Dep />
   <button @click="count++"> inject count {{ count }}</button>
   <Vmodel v-model:message="message"/><span>{{ message }}</span>
   <HelloWorld msg="Vite + Vue" />
