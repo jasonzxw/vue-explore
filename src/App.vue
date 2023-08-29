@@ -1,29 +1,37 @@
 <!--
  * @author: jason_zuo
  * @LastEditors: jason_zuo
- * @LastEditTime: 2023-08-24 11:04:35
+ * @LastEditTime: 2023-08-29 10:39:57
  * @FilePath: \vue-explore\src\App.vue
 -->
 <script setup>
-import { ref , computed , provide , onBeforeUpdate , onUpdated , onMounted} from 'vue'
+import { ref , computed , provide , onBeforeUpdate , onUpdated , onMounted ,nextTick} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import SlotChild from './components/slot/SlotChild.vue';
 import TeleportModal from './components/teleport/TeleportModal.vue';
 import Injectparent from './components/inject/Injectparent.vue';
 import Vmodel from './components/vmodel/Vmodel.vue';
 import Dep from './components/dep/Dep.vue';
+
 const count = ref(1)
+const elref = ref();
 provide('count' ,count)
 
 const message = ref('hi')
 
-onMounted(() => console.log(`parent mounted`))
+onMounted(() => {
+  console.log(`parent mounted`);
+  // console.log(elref.value.add())
+})
 onBeforeUpdate(() => console.log(`parent before update`));
 onUpdated(() => console.log(`parent update`))
 </script>
 
 <template>
-  <Dep />
+  <router-view />
+</template>
+<!-- <template>
+  <Dep ref="elref"/>
   <button @click="count++"> inject count {{ count }}</button>
   <Vmodel v-model:message="message"/><span>{{ message }}</span>
   <HelloWorld msg="Vite + Vue" />
@@ -41,7 +49,7 @@ onUpdated(() => console.log(`parent update`))
     </template>
   </SlotChild>
   <TeleportModal />
-</template>
+</template> -->
 
 <style scoped>
 .logo {
